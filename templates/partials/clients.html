@@ -1,0 +1,123 @@
+<script id="clientsList" type="text/template">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-5">
+            <div class="form-group">
+                <input class="form-control input-sm search-input" placeholder="<%= lang.clients_search %>" type="text">
+            </div>
+
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2 pull-right text-right">
+            <a href="#client/add" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> <%= lang.client_add %></a>
+        </div>
+    </div>
+    <div id="table-container"></div>
+</script>
+
+<script id="clientsTable" type="text/template">
+    <table class="table table-hover table-condensed">
+        <thead>
+        <tr>
+            <th><%= lang.name %></th>
+            <th><%= lang.address %></th>
+            <th><%= lang.phone %></th>
+            <th><%= lang.email %></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</script>
+
+<script id="clientView" type="text/template">
+    <div class="col-md-8 col-md-offset-2">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#clientsForm" aria-controls="details" role="tab"
+                                                      data-toggle="tab"><%= lang.details %></a></li>
+            <% if(id){ %>
+                <li role="presentation"><a href="#history" aria-controls="history" role="tab" data-toggle="tab"><%= lang.history %></a></li>
+            <% } %>
+        </ul>
+        
+
+        <div class="tab-content">
+
+            
+            <div id="clientsForm" class="tab-pane fade in active" role="tabpanel" aria-labelledby="clientsForm">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        
+                        <label for="inputName" class="col-sm-2 control-label"><%= lang.name %> *</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="name" value="<%- typeof(name)!== 'undefined' ?  name : '' %>"
+                                   class="form-control" id="inputName" placeholder="<%= lang.name_ph %>" required>
+                            <span class="help-block hidden"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCountry" class="col-sm-2 control-label"><%= lang.country %></label>
+                        <div class="col-sm-9">
+                            <select name="country" class="form-control" id="inputCountry">
+                                <% _.each(lang.countries, function(value, key) { %>
+                                <option value="<%= key %>" <%- (typeof(country) !== 'undefined' && country == key) ? 'selected' : '' %>><%= value %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCity" class="col-sm-2 control-label"><%= lang.city %></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="city" value="<%- typeof(city)!== 'undefined' ?  city : '' %>"
+                                   class="form-control" id="inputCity" placeholder="<%= lang.city_ph %>">
+                            <span class="help-block hidden"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress" class="col-sm-2 control-label"><%= lang.address %> *</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="address"
+                                   value="<%- typeof(address)!== 'undefined' ?  address : '' %>"
+                                   class="form-control" id="inputAddress" placeholder="<%= lang.address_ph %>" required>
+                            <span class="help-block hidden"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhone" class="col-sm-2 control-label"><%= lang.phone %> *</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="phone" value="<%- typeof(phone)!== 'undefined' ?  phone : '' %>"
+                                   class="form-control" id="inputPhone" placeholder="<%= lang.phone_ph %>" required>
+                            <span class="help-block hidden"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-sm-2 control-label"><%= lang.email %></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="email" value="<%- typeof(email)!== 'undefined' ?  email : '' %>"
+                                   class="form-control" id="inputEmail" placeholder="<%= lang.email_ph %>">
+                            <span class="help-block hidden"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-9">
+                            <div class="pull-left">
+                                <button type="button" class="btn btn-primary saveButton"><%= lang.save %></button>
+                                <button type="reset" class="btn btn-default resetButton"><%= lang.reset %></button>
+                            </div>
+                            <div class="loading-save hidden">
+                                <img src="img/spinner.svg" class="img-responsive" alt="Loanding...">
+                            </div>
+                            
+                            <% if(id){ %>
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-danger deleteButton"><%= lang.delete %></button>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+            <div id="history" class="tab-pane fade in" role="tabpanel" aria-labelledby="history"></div>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,228 @@
+<script id="bookList" type="text/template">
+    <div class="bookItem fadeIn animated">
+        <a href="#book/<%- id %>">
+            <img src="img/<%- (typeof(cover) !== 'undefined' && cover.length > 0) ?  'books/' + cover : 'placeholder' %>.jpg"
+                 class="img-responsive" alt="<%- title %>">
+            <span class="text-overflow"><%- title %></span>
+            <% if(status == 1){ %>
+            <div class="status"><%= lang.not_available %></div>
+            <% } %>
+        </a>
+    </div>
+</script>
+
+<script id="bookView" type="text/template">
+    <div class="col-md-8 col-md-offset-2">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#bookForm" aria-controls="bookForm" role="tab"
+                                                      data-toggle="tab"><%= lang.details %></a></li>
+            <% if(id){ %>
+            <li role="presentation"><a href="#history" aria-controls="history" role="tab" data-toggle="tab"><%= lang.history %></a></li>
+            <% } %>
+        </ul>
+        <div class="tab-content">
+            <div id="bookForm" class="tab-pane fade in active" role="tabpanel" aria-labelledby="bookForm">
+                <form enctype="multipart/form-data" class="form-horizontal">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <div class="coverPlaceholder">
+                                <img src="img/<%- (typeof(cover) !== 'undefined' && cover.length > 0) ?  'books/' + cover : 'placeholder' %>.jpg"
+                                     id="coverPreview" class="img-responsive" alt="Add an image">
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="file" name="cover" value="" id="inputImage" accept="image/*">
+                                    <p class="help-block"><%= lang.jpg_only %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-8">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputTitle" class="col-sm-2 control-label"><%= lang.title %> *</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="title"
+                                               value="<%- typeof(title)!== 'undefined' ?  title : '' %>"
+                                               class="form-control" id="inputTitle" placeholder="<%= lang.title_ph %>"
+                                               required>
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputAuthor" class="col-sm-2 control-label"><%= lang.author %> *</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="author"
+                                               value="<%- typeof(author)!== 'undefined' ?  author : '' %>"
+                                               class="form-control" id="inputAuthor" placeholder="<%= lang.author_ph %>"
+                                               required>
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputEditor" class="col-sm-2 control-label"><%= lang.editor %></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="editor"
+                                               value="<%- typeof(editor)!== 'undefined' ?  editor : '' %>"
+                                               class="form-control" id="inputEditor"
+                                               placeholder="<%= lang.editor_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputPublisher" class="col-sm-2 control-label"><%= lang.publisher
+                                        %></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="publisher"
+                                               value="<%- typeof(publisher)!== 'undefined' ?  publisher : '' %>"
+                                               class="form-control"
+                                               id="inputPublisher" placeholder="<%= lang.publisher_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputCountry" class="col-sm-2 control-label"><%= lang.country %></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="country"
+                                               value="<%- typeof(country)!== 'undefined' ?  country : '' %>"
+                                               class="form-control" id="inputCountry"
+                                               placeholder="<%= lang.country_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputLanguage" class="col-sm-2 control-label"><%= lang.language
+                                        %></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="language"
+                                               value="<%- typeof(language)!== 'undefined' ?  language : '' %>"
+                                               class="form-control" id="inputLanguage"
+                                               placeholder="<%= lang.language_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputEdition" class="col-sm-2 control-label"><%= lang.edition %></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="edition"
+                                               value="<%- typeof(edition)!== 'undefined' ?  edition : '' %>"
+                                               class="form-control" id="inputEdition"
+                                               placeholder="<%= lang.edition_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="inputDate" class="col-sm-4 control-label"><%= lang.year %></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="published_on"
+                                               value="<%- typeof(published_on)!== 'undefined' ?  published_on : (new Date().getFullYear()) %>"
+                                               class="form-control" id="inputDate" placeholder="<%= lang.year_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="inputISBN" class="col-sm-4 control-label">ISBN</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" name="isbn"
+                                               value="<%- typeof(isbn)!== 'undefined' ?  isbn : 0 %>"
+                                               class="form-control" id="inputISBN" placeholder="<%= lang.isbn_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="inputPages" class="col-sm-4 control-label"><%= lang.pages %></label>
+                                    <div class="col-sm-8">
+                                        <input type="number" name="pages"
+                                               value="<%- typeof(pages)!== 'undefined' ?  pages : 0 %>"
+                                               class="form-control" id="inputPages" placeholder="<%= lang.pages_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="inputQuantity" class="col-sm-4 control-label"><%= lang.quantity
+                                        %></label>
+                                    <div class="col-sm-8">
+                                        <input type="number" name="quantity"
+                                               value="<%- typeof(quantity)!== 'undefined' ?  quantity : 1 %>"
+                                               class="form-control" id="inputQuantity"
+                                               placeholder="<%= lang.quantity_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="inputStatus" class="col-sm-4 control-label"><%= lang.status %></label>
+                                    <div class="col-sm-8">
+                                        <select name="status" class="form-control" id="inputStatus">
+                                            <option value="0"
+                                            <%- status == 0 ? ' selected' : '' %> ><%= lang.available %></option>
+                                            <option value="1"
+                                            <%- status == 1 ? ' selected' : '' %> ><%= lang.not_available %></option>
+                                        </select>
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="inputPrice" class="col-sm-4 control-label"><%= lang.price %></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="price"
+                                               value="<%- typeof(price)!== 'undefined' ?  price : '' %>"
+                                               class="form-control" id="inputPrice" placeholder="<%= lang.price_ph %>">
+                                        <span class="help-block hidden"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <hr>
+                            <div class="pull-left">
+                                <button type="button" class="btn btn-primary saveButton"><%= lang.save %></button>
+                                <button type="reset" class="btn btn-default resetButton"><%= lang.reset %></button>
+                            </div>
+                            <div class="loading-save hidden">
+                                <img src="img/spinner.svg" class="img-responsive" alt="Loanding...">
+                            </div>
+                            <% if(id){ %>
+                            <div class="pull-right">
+                                <a href="#rental/add/<%= id %>" type="button" class="btn btn-success rentButton"><%=
+                                    lang.rent %></a>
+                                <button type="button" class="btn btn-danger deleteButton"><%= lang.delete %></button>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" value="<%- typeof(id) !== 'undefined' ?  id : '' %>"
+                           class="form-control"
+                           id="inputId">
+                    <input type="hidden" name="old_cover" value="<%- typeof(cover) !== 'undefined' ?  cover : '' %>"
+                           class="form-control" id="inputCover">
+                </form>
+            </div>
+            <div id="history" class="tab-pane fade in" role="tabpanel" aria-labelledby="history"></div>
+        </div>
+    </div>
+</script>

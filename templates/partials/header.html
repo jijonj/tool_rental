@@ -1,0 +1,60 @@
+<script id="headerView" type="text/template">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse"
+                        aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">
+                    <img src="img/logo-small.png" alt="Thekkekara Power Tools Logo">
+                    Thekkekara Power Tools
+                </a>
+            </div>
+            <div class="row">
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                    <div class="col-xs-12 col-sm-4 col-md-3 navbar-tools">
+                        <a href="#book/add" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>
+                            <%= lang.book_new %></a>
+                        <a href="<?= $router->pathFor('logout'); ?>" class="btn btn-default btn-sm"><i
+                                class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a>
+                    </div>
+                    <div id="searchBooks" class="col-xs-12 col-sm-5 col-md-6 search">
+                        <div class="form-group">
+                            <input type="text" class="form-control search-input" id="inputSearch"
+                                   placeholder="<%= lang.books_search %>">
+                            <div id="search-results"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <nav class="sub-navbar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="list-inline">
+                        <li class="overview"><a href="#"><i class="fa fa-tachometer" aria-hidden="true"></i> <%= lang.overview %></a></li>
+                        <li class="viewBooks"><a href="#books"><i class="fa fa-book" aria-hidden="true"></i> <%= lang.library %></a></li>
+                        <li class="viewClients"><a href="#clients"><i class="fa fa-users" aria-hidden="true"></i> <%= lang.clients %></a></li>
+                        <li class="viewSettings"><a href="#settings"><i class="fa fa-cog" aria-hidden="true"></i> <%= lang.settings %></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</script>
+
+<script id="searchResults" type="text/template">
+    <ul class="list-unstyled">
+        <% _.each(books, function(book) { %>
+        <li><a href="#book/<%= book.escape('id') %>">
+            <span class="result-title"><%= book.escape('title') %></span>
+            <% if(book.get('status') == 1) { %> <span class="status"><%= lang.not_available %></span><% } %>
+        </a></li>
+        <% }); %>
+    </ul>
+</script>
